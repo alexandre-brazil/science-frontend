@@ -1,0 +1,36 @@
+# Dependências
+node_modules/
+.pnp
+.pnp.js
+
+# Next.js - Builds e Cache (Obrigatório ignorar)
+.next/
+out/
+build/
+
+# Variáveis de Ambiente (Segurança!)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Debug e Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.eslintcache
+.turbo/
+
+# Sistema Operacional
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+
+# Typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# Testes (Se usar Jest/Vitest)
+coverage/
