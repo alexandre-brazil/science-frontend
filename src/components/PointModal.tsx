@@ -1,5 +1,7 @@
 "use client";
-import { X, ChevronLeft, ChevronRight, Calendar } from "lucide-react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface PointModalProps {
   ponto: any;
@@ -14,45 +16,71 @@ export default function PointModal({
   onNext,
   onPrev,
 }: PointModalProps) {
+  // Estado para garantir que o Portal só renderize no lado do cliente (evita erros no Next.js)
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+
+    // Opcional: Travar o scroll da página enquanto o modal estiver aberto
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
+
   const anoAtual = new Date().getFullYear();
   const anosAtras = anoAtual - parseInt(ponto.oldPhotoYear);
 
-  return (
-    <div className="fixed inset-0 z-[10000] bg-black/95 text-white flex flex-col md:flex-row animate-in fade-in zoom-in duration-300">
+  // Se ainda não montou no cliente, não renderiza nada
+  if (!mounted) return null;
+
+  // O conteúdo do seu modal continua exatemente o mesmo
+  const modalContent = (
+    <div className="fixed inset-0 z-[99999] bg-black/95 text-white flex flex-col md:flex-row animate-in fade-in zoom-in duration-300">
       <button
-        onClick={onClose}
-        className="absolute top-6 right-6 z-[10001] p-3 bg-white/10 hover:bg-white/20 rounded-full transition"
+        // ANTES ERA: onClick={onClose}
+        // AGORA FICA ASSIM:
+        onClick={() => window.location.reload()}
+        className="absolute top-6 right-6 z-[100000] p-3 bg-white/10 hover:bg-white/20 rounded-full transition"
       >
         <X size={32} />
       </button>
 
       {/* TEXTO */}
-      <div className="w-full md:w-1/3 p-10 flex flex-col justify-center border-r border-white/10">
-        <div className="space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-600 rounded-full text-xs font-bold uppercase">
-            <Calendar size={14} /> Memória Urbana
-          </div>
-          <h2 className="text-3xl font-light italic opacity-90 leading-tight">
+      {/* PAINEL LATERAL (TEXTO) */}
+      <div className="w-full md:w-1/3 p-10 flex flex-col justify-between border-r border-white/10 h-full max-h-screen">
+        {/* 1. TOPO: Enviado por */}
+        <div className="flex-shrink-0 text-center md:text-left">
+          <p className="text-sm text-gray-400 uppercase tracking-widest font-semibold">
+            Enviado por
+          </p>
+          <p className="text-2xl font-medium mt-1">{ponto.authorName}</p>
+        </div>
+
+        {/* 2. MEIO: Texto com área fixa/flexível */}
+        {/* O flex-1 faz essa área ocupar todo o espaço central disponível. */}
+        {/* O overflow-y-auto garante que o layout não quebre se o texto for gigante. */}
+        <div className="flex-1 flex flex-col justify-center py-8 overflow-y-auto">
+          <h2 className="text-3xl md:text-4xl font-light italic opacity-90 leading-tight text-center md:text-left">
             "{ponto.changeDescription}"
           </h2>
-          <div>
-            <p className="text-sm text-gray-400">Enviado por</p>
-            <p className="text-xl font-medium">{ponto.authorName}</p>
-          </div>
-          <div className="flex gap-4 pt-6">
-            <button
-              onClick={onPrev}
-              className="p-4 bg-white/5 hover:bg-white/10 rounded-xl transition"
-            >
-              <ChevronLeft />
-            </button>
-            <button
-              onClick={onNext}
-              className="p-4 bg-white/5 hover:bg-white/10 rounded-xl transition"
-            >
-              <ChevronRight />
-            </button>
-          </div>
+        </div>
+
+        {/* 3. BASE: Botões centralizados */}
+        <div className="flex-shrink-0 flex justify-center gap-6 pt-6 mt-auto">
+          <button
+            onClick={onPrev}
+            className="p-4 bg-white/5 hover:bg-white/15 hover:scale-105 active:scale-95 rounded-2xl transition-all"
+          >
+            <ChevronLeft size={28} />
+          </button>
+          <button
+            onClick={onNext}
+            className="p-4 bg-white/5 hover:bg-white/15 hover:scale-105 active:scale-95 rounded-2xl transition-all"
+          >
+            <ChevronRight size={28} />
+          </button>
         </div>
       </div>
 
@@ -95,4 +123,7 @@ export default function PointModal({
       </div>
     </div>
   );
+
+  // Aqui é onde a mágica acontece: Jogamos o modal direto pro <body>
+  return createPortal(modalContent, document.body);
 }

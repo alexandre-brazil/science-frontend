@@ -78,9 +78,7 @@ export default function AboutPage() {
               </div>
               <div>
                 <h4 className="font-bold text-white mb-2">Instituição</h4>
-                <p className="text-sm">
-                  Escola U. I. M. E. Estevam Ângelo De Sousa, Codó - MA
-                </p>
+                <p className="text-sm">Escola M.João Ribeiro</p>
               </div>
               <div className="sm:col-span-2 border-t border-blue-500 pt-4 mt-2">
                 <p className="text-sm flex items-center gap-2">
