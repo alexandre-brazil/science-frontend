@@ -28,13 +28,13 @@ export default function Home() {
           </div>
 
           <h1 className="text-5xl md:text-7xl font-light tracking-tight leading-tight">
-            O tempo através da{" "}
-            <span className="font-serif italic text-blue-400">paisagem.</span>
+            A vegetação através{" "}
+            <span className="font-serif italic text-blue-400">do tempo.</span>
           </h1>
 
           <p className="text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto leading-relaxed">
             Navegue pelo mapa e descubra como nossa cidade se transformou. Onde
-            havia floresta, hoje há asfalto. Explore o antes e o depois através
+            havia vegetação, hoje há casas. Explore o antes e o depois através
             das lentes da memória urbana.
           </p>
 
@@ -43,7 +43,7 @@ export default function Home() {
               href="/login"
               className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-medium transition-all flex items-center gap-2 hover:scale-105"
             >
-              Explorar o Mapa <ArrowRight size={18} />
+              Comece a explorar <ArrowRight size={18} />
             </Link>
           </div>
         </div>
@@ -65,7 +65,7 @@ export default function Home() {
             {/* OPÇÃO 1: IFRAME DO YOUTUBE/VIMEO */}
             <iframe
               className="absolute inset-0 w-full h-full"
-              src="https://www.youtube.com/embed/SEU_ID_DE_VIDEO_AQUI?rel=0&showinfo=0"
+              src="https://www.youtube.com/embed/2yCBqtSPs1M?si=fWgbBi81wgD56R03"
               title="Vídeo de Apresentação"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -94,17 +94,17 @@ export default function Home() {
               <Leaf size={16} /> Transformação Ambiental
             </div>
             <h2 className="text-4xl md:text-5xl font-light mb-6">
-              De pulmão verde a <br />{" "}
+              Veja o antes <br />{" "}
               <span className="font-serif italic text-neutral-400">
-                selva de pedra.
+                e depois.
               </span>
             </h2>
             <p className="text-neutral-400 text-lg leading-relaxed">
-              As fronteiras da cidade não param de se expandir. Este local, que
-              há poucos anos era dominado por vegetação densa e solo permeável,
-              foi gradualmente substituído por um novo loteamento residencial.
-              Uma mudança que traz moradia, mas que nos obriga a questionar:
-              qual é o limite entre o desenvolvimento e a preservação?
+              A cidade não para de se expandir. Este local, que há poucos anos
+              era dominado por vegetação densa e solo permeável, foi
+              gradualmente substituído por um novo loteamento residencial. Uma
+              mudança que traz moradia, mas que nos obriga a questionar: qual é
+              o limite entre o desenvolvimento e a preservação?
             </p>
           </div>
 
@@ -201,14 +201,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-16">
-            <Link
-              href="/cadastro-ponto"
-              className="inline-flex px-8 py-4 bg-white text-black hover:bg-neutral-200 rounded-full font-medium transition-all items-center gap-2"
-            >
-              <Camera size={18} /> Registrar um Novo Ponto
-            </Link>
-          </div>
+          <div className="mt-16"></div>
         </div>
       </section>
 
